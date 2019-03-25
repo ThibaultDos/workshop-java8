@@ -4,6 +4,7 @@ import java8.data.Data;
 import java8.data.Person;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
@@ -19,6 +20,24 @@ public class Method_02_Test {
         List<Person> findAll();
 
         // TODO créer une méthode String format()
+        
+        default String format(){
+        	return "["+findAll().size()+" persons]";
+        }
+        
+        
+//        default String format(){
+//        	
+//        	List<Person> persons = new ArrayList<>();
+//        	String result="[";
+//        	Integer nb_personnes=persons.size();
+//        	for (Person currentPerson : findAll()){
+//        		nb_personnes++;       		
+//        	}
+//        	result += nb_personnes; 
+//        	return result+" persons]";
+//        }
+        
         // TODO la méthode retourne une chaîne de la forme [<nb_personnes> persons]
         // TODO exemple de résultat : "[14 persons]", "[30 persons]"
     }
@@ -36,6 +55,18 @@ public class Method_02_Test {
 
         // TODO redéfinir la méthode String format()
         // TODO la méthode retourne une chaîne de la forme DaoA[<nb_personnes> persons]
+        
+        @Override
+//        public String format() {
+//        	// TODO Auto-generated method stub
+//        	String showResult="DaoA";
+//        	return showResult+IDao.super.format();
+//        }
+        
+        public String format(){
+        	return DaoA.class.getSimpleName()+IDao.super.format();
+        }
+        
         // TODO exemple de résultat : "DaoA[14 persons]", "DaoA[30 persons]"
         // TODO l'implémentation réutilise la méthode format() de l'interface
 
@@ -48,7 +79,7 @@ public class Method_02_Test {
         DaoA daoA = new DaoA();
 
         // TODO invoquer la méthode format() pour que le test soit passant
-        String result = null;
+        String result = daoA.format();
 
         assertThat(result, is("DaoA[20 persons]"));
     }
