@@ -42,7 +42,13 @@ public class Optional_01_Test {
 
         // TODO invoquer la méthode find(List<T> list, Predicate<T> predicate)
         // TODO age == 10
-        Optional<Person> result = null;
+        
+        Person person = find(personList, p -> p.getAge() == 10);
+        Optional<Person> result = Optional.ofNullable(person);
+      
+        
+        
+        
 
         assertThat(result, instanceOf(Optional.class));
         assertThat(result.isPresent(), is(true));
@@ -59,7 +65,9 @@ public class Optional_01_Test {
 
         // TODO invoquer la méthode find(List<T> list, Predicate<T> predicate)
         // TODO age == 400
-        Optional<Person> result = null;
+        
+        Person person = find(personList, p -> p.getAge() == 400);        
+        Optional<Person> result = Optional.ofNullable(person);
 
         assertThat(result, instanceOf(Optional.class));
         assertThat(result.isPresent(), is(false));
@@ -73,9 +81,17 @@ public class Optional_01_Test {
 
         // TODO invoquer la méthode find(List<T> list, Predicate<T> predicate)
         // TODO age == 10 et firstname == "last_10"
-        Optional<Person> result = null;
+        
+        Predicate<Person> age10 = p -> p.getAge() == 10;
+        Predicate<Person> firsnameLast10 = p -> p.getFirstname()==("last_10");
+        
+        Person person = find(personList, age10.and(firsnameLast10));        
+        Optional<Person> result = Optional.of(person);
 
         // TODO Utiliser la méthode orElseThrow pour déclencher l'exception NotFountException si non trouvé
+        
+        
+        
     }
 
     @Test
@@ -90,7 +106,7 @@ public class Optional_01_Test {
 
         // TODO invoquer la méthode find(List<T> list, Predicate<T> predicate, T defaultValue)
         // TODO predicate => age == 400
-        Person result = null;
+        Person result = Optional.of(person).orElse(defaultValue);
 
         assertThat(result, notNullValue());
         assertThat(result, hasProperty("firstname", is("DEFAULT")));
